@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.s521942.constellationmaker.MakeFragment"
-    android:id="@+id/parent">
+    android:id="@+id/parent"
+    android:background="#ffffcdf6">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -13,7 +14,8 @@
         android:id="@+id/Et"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/textView" />
+        android:layout_toEndOf="@+id/textView"
+        android:textColor="#ff0b0309" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -25,7 +27,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignBottom="@+id/Et"
         android:textAlignment="gravity"
-        android:gravity="bottom" />
+        android:gravity="bottom"
+        android:textColor="#ff000000" />
 
 
     <Button
@@ -40,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Clear"
-        android:id="@+id/button2"
+        android:id="@+id/ClearB"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />
 
@@ -52,15 +55,16 @@
         android:layout_centerVertical="true"
         android:layout_alignEnd="@+id/Et"
         android:layout_toEndOf="@+id/textView"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="50dp"
+        android:background="#ff09060b" />
 
     <requestFocus
         android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/button2" />
+        android:layout_toStartOf="@+id/ClearB" />
 
     <requestFocus
         android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/button2" />
+        android:layout_toStartOf="@+id/ClearB" />
 
     <RadioGroup
         android:layout_width="fill_parent"
