@@ -62,16 +62,15 @@ Paint paint=new Paint();
         paint.setColor(Color.BLUE);
         setFocusable(true);
         for (int i=0;i<pointList.size();i++) {
+           // paint.setColor(Color.BLUE);
            canvas.drawCircle(pointList.get(i).x, pointList.get(i).y, 10, paint);
-            //canvas.dr
-//            if(counter==0){
-//
-//            }
-//            else{
-//                paint.setColor(Color.RED);
-//                canvas.drawLine(pointList.get(counter-1).x,pointList.get(counter-1).y,point.x,point.y,paint);
-//            }
-//            counter++;
+           if(i==0){
+
+           }
+            else{
+               //paint.setColor(Color.RED);
+               canvas.drawLine(pointList.get(i-1).x,pointList.get(i-1).y,pointList.get(i).x, pointList.get(i).y,paint);
+           }
         }
 
     }
