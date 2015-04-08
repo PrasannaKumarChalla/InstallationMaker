@@ -1,12 +1,21 @@
 package com.example.s521942.constellationmaker;
 
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+
+import java.util.zip.Inflater;
+
+import static com.example.s521942.constellationmaker.R.layout.fragment_makenview;
 
 
 /**
@@ -17,9 +26,16 @@ import android.view.ViewGroup;
  * Use the {@link MakeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MakeFragment extends Fragment {
+public class MakeFragment extends Fragment{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    DrawView drawView;
+    View v=null;
+    //RadioButton red,blue,green;
+    RadioGroup radioGroup;
+
+    private Context globalContext = null;
+   // Activity activity;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -54,19 +70,32 @@ public class MakeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        globalContext = this.getActivity().getApplicationContext();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View v=inflater.inflate(R.layout.fragment_makenview,null);
+//     drawView=new DrawView(globalContext);
+//        return drawView;
+
+        v=inflater.inflate(fragment_makenview,container,false);
+
+        drawView=(DrawView)v.findViewById(R.id.DrawV);
+        //drawView.setFocusableInTouchMode(true);
+       // drawView.onTouch(this,MotionEvent);
+       drawView.requestFocus();
+        radioGroup=(RadioGroup)v.findViewById(R.id.radiogrp);
+        radioGroup.setOnCheckedChangeListener(new radiocheckListener());
+
         return v;
-       // return inflater.inflate(R.layout.fragment_makenview, container, false);
+
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -85,6 +114,8 @@ public class MakeFragment extends Fragment {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+
+        //drawView.requestFocus();
     }
 
     @Override
@@ -92,6 +123,9 @@ public class MakeFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -108,4 +142,30 @@ public class MakeFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+      //  drawView.requestFocus();
+    }
+    public class radiocheckListener implements RadioGroup.OnCheckedChangeListener{
+
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            switch (checkedId) {
+                case R.id.RbB:
+                    drawView.paint.setColor(Color.BLUE);
+                    break;
+                case R.id.RbG:
+                    drawView.paint.setColor(Color.GREEN);
+                    break;
+                case R.id.RbR:
+                    drawView.paint.setColor(Color.RED);
+                    break;
+                default:
+                    drawView.paint.setColor(Color.RED);
+                    break;
+            }
+
+        }
+    }
 }

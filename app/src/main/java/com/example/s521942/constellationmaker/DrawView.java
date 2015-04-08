@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.RadioButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,16 +21,17 @@ import java.util.List;
 /**
  * TODO: document your custom view class.
  */
-public class DrawView extends View implements View.OnTouchListener {
+public class DrawView extends View implements View.OnTouchListener{
 //int counter=0;
 Paint paint=new Paint();
+
     List<Point> pointList=new ArrayList<Point>();
     public DrawView(Context context) {
         super(context);
         setFocusable(true);
         setFocusableInTouchMode(true);
         this.setOnTouchListener(this);
-        paint.setColor(Color.BLUE);
+       // paint.setColor(Color.BLUE);
     }
 
     public DrawView(Context context, AttributeSet attrs) {
@@ -55,11 +57,11 @@ Paint paint=new Paint();
     @Override
     protected void onDraw(Canvas canvas) {
         setBackgroundColor(Color.WHITE);
-        paint.setColor(Color.BLUE);
+        //paint.setColor(Color.BLUE);
         setFocusable(true);
         setFocusableInTouchMode(true);
         this.setOnTouchListener(this);
-        paint.setColor(Color.BLUE);
+       // paint.setColor(Color.BLUE);
         setFocusable(true);
         for (int i=0;i<pointList.size();i++) {
            // paint.setColor(Color.BLUE);
@@ -90,6 +92,9 @@ Paint paint=new Paint();
         //Log.d("t","touch");
         return true;
     }
+
+
+
     class Point {
         float x, y;
     }
