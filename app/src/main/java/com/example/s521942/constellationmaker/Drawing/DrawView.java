@@ -1,4 +1,4 @@
-package com.example.s521942.constellationmaker;
+package com.example.s521942.constellationmaker.Drawing;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
@@ -13,6 +14,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.Toast;
+
+import com.example.s521942.constellationmaker.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +26,8 @@ import java.util.List;
  * TODO: document your custom view class.
  */
 public class DrawView extends View implements View.OnTouchListener{
-//int counter=0;
 Paint paint=new Paint();
+    public boolean clearCanvas=false;
 
     List<Point> pointList=new ArrayList<Point>();
     public DrawView(Context context) {
@@ -31,7 +35,6 @@ Paint paint=new Paint();
         setFocusable(true);
         setFocusableInTouchMode(true);
         this.setOnTouchListener(this);
-       // paint.setColor(Color.BLUE);
     }
 
     public DrawView(Context context, AttributeSet attrs) {
@@ -42,6 +45,7 @@ Paint paint=new Paint();
     public DrawView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(attrs, defStyle);
+
     }
 
     private void init(AttributeSet attrs, int defStyle) {
@@ -56,27 +60,34 @@ Paint paint=new Paint();
 
     @Override
     protected void onDraw(Canvas canvas) {
-        setBackgroundColor(Color.WHITE);
-        //paint.setColor(Color.BLUE);
-        setFocusable(true);
-        setFocusableInTouchMode(true);
-        this.setOnTouchListener(this);
-       // paint.setColor(Color.BLUE);
-        setFocusable(true);
-        for (int i=0;i<pointList.size();i++) {
-           // paint.setColor(Color.BLUE);
-           canvas.drawCircle(pointList.get(i).x, pointList.get(i).y, 10, paint);
-           if(i==0){
+        super.onDraw(canvas);
+        if(clearCanvas==true)
+        {
+            canvas.drawColor(Color.WHITE, PorterDuff.Mode.CLEAR);
+            paint.setColor(Color.parseColor("#FFFFF7E8"));
+            clearCanvas = false;
 
-           }
-            else{
-               //paint.setColor(Color.RED);
-               canvas.drawLine(pointList.get(i-1).x,pointList.get(i-1).y,pointList.get(i).x, pointList.get(i).y,paint);
-           }
         }
 
-    }
 
+            Log.v("d", "called ondraw");
+
+
+            setFocusable(true);
+            setFocusableInTouchMode(true);
+            this.setOnTouchListener(this);
+            setFocusable(true);
+            for (int i = 0; i < pointList.size(); i++) {
+                canvas.drawCircle(pointList.get(i).x, pointList.get(i).y, 10, paint);
+                if (i == 0) {
+
+                } else {
+                    canvas.drawLine(pointList.get(i - 1).x, pointList.get(i - 1).y, pointList.get(i).x, pointList.get(i).y, paint);
+                }
+            }
+
+
+    }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -89,13 +100,35 @@ Paint paint=new Paint();
         pointList.add(point);
     }
         invalidate();
-        //Log.d("t","touch");
+
         return true;
     }
+    public void clearCanvas(){
 
-
-
-    class Point {
-        float x, y;
+        this.clearCanvas = true;
+        invalidate();
+        pointList.clear();
     }
+
+
+
+   public class Point {
+        float x, y;
+
+       public float getX() {
+           return x;
+       }
+
+       public void setX(float x) {
+           this.x = x;
+       }
+
+       public float getY() {
+           return y;
+       }
+
+       public void setY(float y) {
+           this.y = y;
+       }
+   }
 }
