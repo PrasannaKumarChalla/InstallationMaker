@@ -3,6 +3,7 @@ package com.example.s521942.constellationmaker;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -10,8 +11,13 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import com.example.s521942.constellationmaker.dummy.Drawings;
 
 import java.util.zip.Inflater;
 
@@ -26,13 +32,18 @@ import static com.example.s521942.constellationmaker.R.layout.fragment_makenview
  * Use the {@link MakeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MakeFragment extends Fragment{
+public class MakeFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     DrawView drawView;
     View v=null;
+    Button clear,save;
+   // Drawings drawings=new Drawings();
+    Drawings.DrawItem drawItem;
     //RadioButton red,blue,green;
     RadioGroup radioGroup;
+    EditText nameEt;
+    String name;
 
     private Context globalContext = null;
    // Activity activity;
@@ -85,8 +96,21 @@ public class MakeFragment extends Fragment{
 //        return drawView;
 
         v=inflater.inflate(fragment_makenview,container,false);
+        clear=(Button)v.findViewById(R.id.ClearB);
+        clear.setOnClickListener(this);
+
+        nameEt=(EditText)v.findViewById(R.id.Et);
+
+        //Toast.makeText()
+
+        save=(Button)v.findViewById(R.id.SaveB);
+        save.setOnClickListener(this);
+
 
         drawView=(DrawView)v.findViewById(R.id.DrawV);
+
+
+
         //drawView.setFocusableInTouchMode(true);
        // drawView.onTouch(this,MotionEvent);
        drawView.requestFocus();
@@ -124,7 +148,30 @@ public class MakeFragment extends Fragment{
         mListener = null;
     }
 
+    @Override
+    public void onClick(View v) {
+        name=nameEt.getText().toString();
+        switch (v.getId()) {
+            case R.id.ClearB:
+                drawView.clearCanvas();
+                break;
+            case R.id.SaveB:
+                if(name.equals("")){
 
+                    Toast.makeText(getActivity(),"Enter name",Toast.LENGTH_LONG).show();
+                    break;
+
+                }
+                else{
+
+                    drawItem=new Drawings.DrawItem(name,drawView.pointList);
+                    Drawings.addItem(drawItem);
+                    Toast.makeText(getActivity(),"item added",Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
+
+    }
 
 
     /**
@@ -140,6 +187,7 @@ public class MakeFragment extends Fragment{
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+        //public void clear(View v);
     }
 
     @Override
@@ -168,4 +216,5 @@ public class MakeFragment extends Fragment{
 
         }
     }
+
 }
