@@ -2,46 +2,45 @@ package com.example.s521942.constellationmaker;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.graphics.Color;
 import android.net.Uri;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.example.s521942.constellationmaker.Drawing.DrawView;
+import com.example.s521942.constellationmaker.Drawing.MakeFragment;
+import com.example.s521942.constellationmaker.Viewer.DrawingsFragment;
+import com.example.s521942.constellationmaker.Viewer.ViewerFragment;
 
 
-public class MainActivity extends Activity implements MakeFragment.OnFragmentInteractionListener {
+public class MainActivity extends Activity implements MakeFragment.OnFragmentInteractionListener,DrawingsFragment.OnFragmentInteractionListener {
     ActionBar.Tab tab1;
     ActionBar.Tab tab2;
     ActionBar.Tab tab3;
     DrawView drawView;
+    MakeFragment makeFragment=new MakeFragment();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ActionBar actionBar=getActionBar();
-
-//        drawView = new DrawView(this);
-//        drawView.setBackgroundColor(Color.WHITE);
-//        setContentView(drawView);
-//        drawView.requestFocus();
-
-
+        //drawView=(DrawView)findViewById(R.id.DrawV);
 
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setDisplayShowTitleEnabled(false);
-        tab1 = actionBar.newTab().setText("List")
-                .setTabListener(new TabListener<MakeFragment>(this, "Sports", MakeFragment.class));
+        tab1 = actionBar.newTab().setText("Make")
+                .setTabListener(new TabListener<MakeFragment>(this, "Make", MakeFragment.class));
         actionBar.addTab(tab1);
 
-//        tab2 = actionBar.newTab()
-//                .setText("Viewer")
-//                .setTabListener(new TabListener<ImageFragment>(this, "Images", ImageFragment.class));
-//        actionBar.addTab(tab2);
-//        tab3 = actionBar.newTab()
-//                .setText("Maker")
-//                .setTabListener(new TabListener<Add>(this, "Additions", Add.class));
-//        actionBar.addTab(tab3);
+        tab2 = actionBar.newTab()
+                .setText("DrawingsList")
+                .setTabListener(new TabListener<DrawingsFragment>(this, "Images", DrawingsFragment.class));
+        actionBar.addTab(tab2);
+        tab3 = actionBar.newTab()
+                .setText("Viewer")
+                .setTabListener(new TabListener<ViewerFragment>(this, "Viewer", ViewerFragment.class));
+        actionBar.addTab(tab3);
     }
 
 
@@ -69,6 +68,17 @@ public class MainActivity extends Activity implements MakeFragment.OnFragmentInt
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+
+    }
+
+ //   @Override
+    public void clear(View v) {
+        drawView=new DrawView(this);
+        drawView.clearCanvas();
+    }
+
+    @Override
+    public void onFragmentInteraction(String id) {
 
     }
 }

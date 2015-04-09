@@ -1,25 +1,21 @@
-package com.example.s521942.constellationmaker;
+package com.example.s521942.constellationmaker.Drawing;
 
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.example.s521942.constellationmaker.dummy.Drawings;
-
-import java.util.zip.Inflater;
+import com.example.s521942.constellationmaker.R;
+import com.example.s521942.constellationmaker.Viewer.Drawings;
 
 import static com.example.s521942.constellationmaker.R.layout.fragment_makenview;
 
@@ -39,7 +35,8 @@ public class MakeFragment extends Fragment implements View.OnClickListener{
     View v=null;
     Button clear,save;
    // Drawings drawings=new Drawings();
-    Drawings.DrawItem drawItem;
+    public Drawings.DrawItem drawItem;
+    public Drawings drawings=new Drawings();
     //RadioButton red,blue,green;
     RadioGroup radioGroup;
     EditText nameEt;
@@ -164,9 +161,10 @@ public class MakeFragment extends Fragment implements View.OnClickListener{
                 }
                 else{
 
-                    drawItem=new Drawings.DrawItem(name,drawView.pointList);
-                    Drawings.addItem(drawItem);
+
+                    Drawings.addItem(new Drawings.DrawItem(name,drawView.pointList));
                     Toast.makeText(getActivity(),"item added",Toast.LENGTH_LONG).show();
+                    ////drawView.earaseCanvas();
                 }
                 break;
         }
@@ -216,5 +214,6 @@ public class MakeFragment extends Fragment implements View.OnClickListener{
 
         }
     }
+   // public void saveDrawing
 
 }

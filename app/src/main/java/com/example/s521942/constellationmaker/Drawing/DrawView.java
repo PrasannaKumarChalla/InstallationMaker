@@ -63,8 +63,9 @@ Paint paint=new Paint();
         super.onDraw(canvas);
         if(clearCanvas==true)
         {
+           pointList=new ArrayList<Point>();
             canvas.drawColor(Color.WHITE, PorterDuff.Mode.CLEAR);
-            paint.setColor(Color.parseColor("#FFFFF7E8"));
+            paint.setColor(Color.BLACK);
             clearCanvas = false;
 
         }
@@ -107,9 +108,9 @@ Paint paint=new Paint();
 
         this.clearCanvas = true;
         invalidate();
-        pointList.clear();
-    }
 
+    }
+  
 
 
    public class Point {
